@@ -51,6 +51,23 @@ func (t *List) Print() string {
 	return fmt.Sprintf("%s%v", t.header(), t.list())
 }
 
+func (t *List) GetVersions() []string {
+	vers := []string{}
+	if len(t.versions) == 0 {
+		t.getVersions()
+	}
+	t.swap()
+
+	for _, version := range t.versions {
+		vers = append(vers, version.Version)
+	}
+	return vers
+}
+
+func (t *List) LastVersion() string {
+	return t.GetVersions()[0]
+}
+
 func (t *List) SetNumOfVersions(numOfVersion int) {
 	if len(t.versions) == 0 {
 		t.getVersions()
