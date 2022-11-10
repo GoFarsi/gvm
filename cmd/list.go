@@ -12,7 +12,12 @@ import (
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "list of go version with commit id",
+	Short: "List of go version with commit id",
+	Long: `With this command you can get list of golang version.
+
+For example:
+  $ gvm list
+  $ gvm list --line 10`,
 	Run: func(cmd *cobra.Command, args []string) {
 		list, err := api.NewList()
 		if err != nil {
@@ -33,5 +38,7 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
+	rootCmd.AddCommand(listCmd)
+
 	listCmd.Flags().IntP("line", "l", 0, "limit to n of last version list")
 }

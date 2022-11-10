@@ -1,10 +1,10 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
 	"fmt"
+	"github.com/GoFarsi/gvm/api"
+	"github.com/GoFarsi/gvm/errors"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -12,28 +12,29 @@ import (
 // releaseCmd represents the release command
 var releaseCmd = &cobra.Command{
 	Use:   "release",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Show version change logs",
+	Long: `Show version change logs of go versions.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+For example:
+  $ gvm release
+  $ gvm release --version 1.x`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("release called")
+		ver, err := cmd.Flags().GetString("version")
+		if err != nil {
+			log.Fatalln(errors.ERR_INVALID_VALUE)
+		}
+
+		if len(ver) != 0 {
+			fmt.Println(api.GetDocVersion(ver))
+			return
+		}
+
+		fmt.Println(api.GetFullDoc())
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(releaseCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// releaseCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// releaseCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	releaseCmd.Flags().StringP("version", "v", "", "set specific version for download")
 }

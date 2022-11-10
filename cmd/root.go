@@ -28,5 +28,4 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(listCmd)
 }

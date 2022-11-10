@@ -1,6 +1,3 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -12,28 +9,24 @@ import (
 // installCmd represents the install command
 var installCmd = &cobra.Command{
 	Use:   "install",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Install last version of golang",
+	Long: `With this command you can install last version of golang
+or specific version x.x.x.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+For example:
+  $ gvm install
+  $ gvm install --backup
+  $ gvm install --version 1.x.x
+  $ gvm install --version 1.x.x --backup
+`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("install called")
+		fmt.Println("implement me!!!")
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(installCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// installCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// installCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	installCmd.Flags().BoolP("backup", "b", false, "backup downloaded golang into /home/{user}")
+	installCmd.Flags().StringP("version", "v", "", "set specific version for download")
 }
