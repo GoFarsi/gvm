@@ -6,12 +6,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const version = "0.0.1"
+var Version = ""
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:     "gvm",
-	Version: version,
+	Version: Version,
 	Short:   "go version manager tool",
 	Long: `You can manage your golang versions easily 
 with gvm by installing, upgrading, list and other commands.
