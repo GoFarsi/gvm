@@ -106,7 +106,10 @@ func installGo(filePath string) error {
 func findGoVersion() (string, error) {
 	path, err := exec.LookPath("go")
 	if err != nil {
-		return "", err
+		if _, err := os.Stat(goInstallPath + "/bin/go"); err != nil {
+			return "", err
+		}
+		path = goInstallPath + "/bin/go"
 	}
 
 	return path, nil
