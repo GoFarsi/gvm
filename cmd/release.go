@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/GoFarsi/gvm/api"
 	"github.com/GoFarsi/gvm/errors"
+	"github.com/GoFarsi/gvm/internal"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -25,11 +25,16 @@ For example:
 		}
 
 		if len(ver) != 0 {
-			fmt.Println(api.GetDocVersion(ver))
+			fmt.Println(internal.GetDocWithSpecificVersion(ver))
 			return
 		}
 
-		fmt.Println(api.GetFullDoc())
+		doc, err := internal.GetFullDoc()
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		fmt.Println(doc)
 	},
 }
 
