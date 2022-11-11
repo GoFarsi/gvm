@@ -1,7 +1,9 @@
 package cmd
 
 import (
-	"fmt"
+	"context"
+	"github.com/GoFarsi/gvm/internal"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -20,7 +22,19 @@ For example:
   $ gvm install --version 1.x.x --backup
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("implement me!!!")
+		ver, err := cmd.Flags().GetString("version")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		backup, err := cmd.Flags().GetBool("backup")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		if err := internal.InstallGo(context.Background(), ver, backup); err != nil {
+			log.Fatalln(err)
+		}
 	},
 }
 
