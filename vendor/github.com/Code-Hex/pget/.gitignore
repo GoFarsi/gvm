@@ -1,0 +1,8 @@
+.*
+!.gitignore
+!.travis.yml
+!.github
+!.goreleaser.yml
+vendor
+bin/*
+!bin/.gitkeep

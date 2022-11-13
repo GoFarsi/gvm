@@ -1,0 +1,70 @@
+# github.com/Code-Hex/pget v0.1.1
+## explicit; go 1.15
+github.com/Code-Hex/pget
+# github.com/Code-Hex/updater v0.0.0-20160712085121-c3f278672520
+## explicit
+github.com/Code-Hex/updater
+# github.com/Songmu/prompter v0.5.1
+## explicit; go 1.18
+github.com/Songmu/prompter
+# github.com/VividCortex/ewma v1.2.0
+## explicit; go 1.12
+github.com/VividCortex/ewma
+# github.com/antonholmquist/jason v1.0.1-0.20180605105355-426ade25b261
+## explicit
+github.com/antonholmquist/jason
+# github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
+## explicit; go 1.13
+github.com/asaskevich/govalidator
+# github.com/cheggaaa/pb/v3 v3.1.0
+## explicit; go 1.12
+github.com/cheggaaa/pb/v3
+github.com/cheggaaa/pb/v3/termutil
+# github.com/fatih/color v1.13.0
+## explicit; go 1.13
+github.com/fatih/color
+# github.com/hashicorp/go-version v1.6.0
+## explicit
+github.com/hashicorp/go-version
+# github.com/inconshreveable/mousetrap v1.0.1
+## explicit; go 1.18
+github.com/inconshreveable/mousetrap
+# github.com/jessevdk/go-flags v1.5.0
+## explicit; go 1.15
+github.com/jessevdk/go-flags
+# github.com/mattn/go-colorable v0.1.13
+## explicit; go 1.15
+github.com/mattn/go-colorable
+# github.com/mattn/go-isatty v0.0.16
+## explicit; go 1.15
+github.com/mattn/go-isatty
+# github.com/mattn/go-runewidth v0.0.14
+## explicit; go 1.9
+github.com/mattn/go-runewidth
+# github.com/mcuadros/go-version v0.0.0-20190830083331-035f6764e8d2
+## explicit
+github.com/mcuadros/go-version
+# github.com/pkg/errors v0.9.1
+## explicit
+github.com/pkg/errors
+# github.com/rivo/uniseg v0.4.2
+## explicit; go 1.18
+github.com/rivo/uniseg
+# github.com/spf13/cobra v1.6.1
+## explicit; go 1.15
+github.com/spf13/cobra
+# github.com/spf13/pflag v1.0.5
+## explicit; go 1.12
+github.com/spf13/pflag
+# golang.org/x/sync v0.1.0
+## explicit
+golang.org/x/sync/errgroup
+# golang.org/x/sys v0.2.0
+## explicit; go 1.17
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/plan9
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# golang.org/x/term v0.2.0
+## explicit; go 1.17
+golang.org/x/term
