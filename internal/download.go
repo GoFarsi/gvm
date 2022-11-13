@@ -9,13 +9,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"runtime"
 )
 
 type Download struct {
 	version      string
 	downloadPath string
-	backup       bool
 }
 
 type Target struct {
@@ -23,10 +23,10 @@ type Target struct {
 	Path          string
 	ContentLength int64
 	Url           string
-	backup        bool
+	backupPath    string
 }
 
-func newDownload(ver string, backup bool) (*Download, error) {
+func newDownload(ver string, backup string) (*Download, error) {
 	def, err := defaultCfg(backup)
 	if err != nil {
 		return nil, err
@@ -39,7 +39,7 @@ func newDownload(ver string, backup bool) (*Download, error) {
 	return def, nil
 }
 
-func defaultCfg(backup bool) (*Download, error) {
+func defaultCfg(backup string) (*Download, error) {
 	list, err := NewList()
 	if err != nil {
 		return nil, err
@@ -48,15 +48,14 @@ func defaultCfg(backup bool) (*Download, error) {
 	dl := &Download{
 		version:      list.LastVersion(),
 		downloadPath: os.TempDir(),
-		backup:       backup,
 	}
 
-	if backup {
-		home, err := os.UserHomeDir()
-		if err != nil {
+	if len(backup) != 0 {
+		if _, err := filepath.Abs(backup); err != nil {
 			return nil, err
 		}
-		dl.downloadPath = home
+
+		dl.downloadPath = backup
 	}
 
 	return dl, nil
@@ -69,7 +68,6 @@ func (d *Download) download(ctx context.Context) (*Target, error) {
 	}
 
 	target.Path = d.downloadPath
-	target.backup = d.backup
 
 	if err := target.download(ctx); err != nil {
 		return nil, err
@@ -122,11 +120,19 @@ func (t *Target) download(ctx context.Context) error {
 		return err
 	}
 
-	if t.backup {
-		log.Printf("download file %s completed and backed up in %s path.", t.FileName, t.Path)
-		return nil
+	file := fmt.Sprintf("%s/%s", t.Path, t.FileName)
+	if err := os.Chmod(file, 0664); err != nil {
+		return err
 	}
 
-	log.Printf("download file %s completed.", t.FileName)
+	_, uId, gId := getLinuxHomeUsers()
+
+	fmt.Println(uId, gId)
+
+	if err := os.Chown(file, uId, gId); err != nil {
+		return err
+	}
+
+	log.Printf("download file %s completed and backed up in %s path.", t.FileName, t.Path)
 	return nil
 }

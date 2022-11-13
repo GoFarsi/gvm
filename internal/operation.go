@@ -7,10 +7,11 @@ import (
 	"github.com/Songmu/prompter"
 	vers "github.com/hashicorp/go-version"
 	"log"
+	"os/exec"
 	"path"
 )
 
-func InstallGo(ctx context.Context, version string, backup bool) error {
+func InstallGo(ctx context.Context, version string, backup string) error {
 	if !prompter.YN(fmt.Sprintf(warningSudoAccess, INSTALL), false) {
 		return nil
 	}
@@ -39,7 +40,7 @@ func InstallGo(ctx context.Context, version string, backup bool) error {
 	return nil
 }
 
-func UpgradeGo(ctx context.Context, version string, backup bool) error {
+func UpgradeGo(ctx context.Context, version string, backup string) error {
 	if !prompter.YN(fmt.Sprintf(warningSudoAccess, UPGRADE), false) {
 		return nil
 	}
@@ -93,9 +94,13 @@ func UpgradeGo(ctx context.Context, version string, backup bool) error {
 	return nil
 }
 
-func DowngradeGo(ctx context.Context, version string, backup bool) error {
+func DowngradeGo(ctx context.Context, version string, backup string) error {
 	if !prompter.YN(fmt.Sprintf(warningSudoAccess, DOWNGRADE), false) {
 		return nil
+	}
+
+	if err := exec.Command("sudo", "-i").Start(); err != nil {
+		return err
 	}
 
 	ver, ok := checkGoInstalled()

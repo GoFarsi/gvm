@@ -16,9 +16,9 @@ or specific version x.x.x.
 
 For example:
   $ gvm downgrade
-  $ gvm downgrade --backup
+  $ gvm downgrade --backup /home/user
   $ gvm downgrade --version 1.x.x
-  $ gvm downgrade --version 1.x.x --backup
+  $ gvm downgrade --version 1.x.x --backup /home/user
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		ver, err := cmd.Flags().GetString("version")
@@ -26,7 +26,7 @@ For example:
 			log.Fatalln(err)
 		}
 
-		backup, err := cmd.Flags().GetBool("backup")
+		backup, err := cmd.Flags().GetString("backup")
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -40,6 +40,6 @@ For example:
 func init() {
 	rootCmd.AddCommand(downgradeCmd)
 
-	downgradeCmd.Flags().BoolP("backup", "b", false, "backup old version installed with downloaded golang into /home/{user}")
+	downgradeCmd.Flags().StringP("backup", "b", "", "backup old version installed with downloaded golang into specific path")
 	downgradeCmd.Flags().StringP("version", "v", "", "set specific version for download")
 }

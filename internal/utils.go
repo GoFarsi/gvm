@@ -8,8 +8,10 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"os/user"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -94,9 +96,7 @@ func installGo(filePath string) error {
 		count++
 	}
 
-	if err := setGoEnvPath(); err != nil {
-		return errors.ERR_CANT_SET_ENV
-	}
+	setGoEnvPath()
 
 	log.Printf("\ngo installed in %s path, please run 'source ~/.profile' for commit env.", goInstallPath)
 
@@ -140,19 +140,55 @@ func removedOldGo() bool {
 	return true
 }
 
-func setGoEnvPath() error {
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return err
-	}
-	file, err := os.OpenFile(home+"/.profile", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
+func setGoEnvPath() {
+	homes, _, _ := getLinuxHomeUsers()
 
-	if _, err := file.WriteString(env); err != nil {
-		return err
+	for _, home := range homes {
+		targetPath := home + "/.profile"
+		b, err := os.ReadFile(targetPath)
+		if err != nil {
+			continue
+		}
+
+		if !strings.Contains(string(b), "/go/bin") {
+			file, err := os.OpenFile(targetPath, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+			if err != nil {
+				continue
+			}
+			if _, err := file.WriteString(env); err != nil {
+				continue
+			}
+		}
 	}
-	return nil
+}
+
+func getLinuxHomeUsers() ([]string, int, int) {
+	b, err := exec.Command("ls", "/home").Output()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	users := strings.Split(string(b), "\n")
+	homeList := []string{"/root"}
+	userId := 0
+	groupId := 0
+	for _, u := range users {
+		if u == "lost+found" || len(u) == 0 {
+			continue
+		}
+		user, err := user.Lookup(u)
+		if err != nil {
+			continue
+		}
+
+		if u != "root" {
+			uIdInt, _ := strconv.Atoi(user.Uid)
+			gIdInt, _ := strconv.Atoi(user.Gid)
+			userId = uIdInt
+			groupId = gIdInt
+		}
+
+		homeList = append(homeList, user.HomeDir)
+	}
+	return homeList, userId, groupId
 }
