@@ -149,6 +149,7 @@ func setGoEnvPath() error {
 	if err != nil {
 		return err
 	}
+	defer file.Close()
 
 	if _, err := file.WriteString(env); err != nil {
 		return err
