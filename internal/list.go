@@ -4,13 +4,14 @@ import (
 	"context"
 	"fmt"
 	"github.com/GoFarsi/gvm/cli"
+	"github.com/GoFarsi/gvm/internal/tags"
 	"reflect"
 	"strings"
 	"time"
 )
 
 type List struct {
-	tags     []*tag
+	tags     []*tags.Tag
 	versions []*Version
 }
 
@@ -19,21 +20,10 @@ type Version struct {
 	Commit  string
 }
 
-type tag struct {
-	Ref    string `json:"ref"`
-	NodeId string `json:"node_id"`
-	Url    string `json:"url"`
-	Object *struct {
-		Sha  string `json:"sha"`
-		Type string `json:"type"`
-		Url  string `json:"url"`
-	} `json:"object"`
-}
-
 func NewList() (*List, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	tags, err := cli.NewGetRequest[[]*tag](ctx, tagsAPI, "")
+	tags, err := cli.NewGetRequest[[]*tags.Tag](ctx, tagsAPI, "")
 	if err != nil {
 		return nil, err
 	}
