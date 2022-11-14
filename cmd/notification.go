@@ -12,8 +12,8 @@ var notificationCmd = &cobra.Command{
 	Short: "check new version of golang",
 	Long: `check new version of golang base on installed version, for automatic check you can set cronjob on you OS.
 	
-	Example:
-	(crontab -l ; echo "* */6 * * * bash gvm notification >/dev/null 2>&1")| crontab -
+	Example cron for every 6 hours check new version:
+	(crontab -l ; echo "* */6 * * * gvm notification >/dev/null 2>&1")| crontab -
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := internal.ReleaseNotification(); err != nil {

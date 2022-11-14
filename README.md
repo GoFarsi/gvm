@@ -81,7 +81,7 @@ gvm notification
 ```
 **note**:
 > you can set cronjob for check new version Go compiler using command :
-> `(crontab -l ; echo "* */6 * * * bash gvm notification >/dev/null 2>&1")| crontab -` every 6 hours.
+> `(crontab -l ; echo "* */6 * * * gvm notification >/dev/null 2>&1")| crontab -` every 6 hours.
 
 # TODO
 - [x] gvm for linux
