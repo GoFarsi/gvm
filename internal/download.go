@@ -116,11 +116,16 @@ func (t *Target) download(ctx context.Context) error {
 		"30",
 		t.Url,
 	}
+	file := fmt.Sprintf("%s/%s", t.Path, t.FileName)
+
+	if !removeOldData(t.Path, file) {
+		return errors.ERR_CANT_REMOVE_OLD_DOWNLOADED
+	}
+
 	if err := dl.Run(ctx, "", args); err != nil {
 		return err
 	}
 
-	file := fmt.Sprintf("%s/%s", t.Path, t.FileName)
 	if err := os.Chmod(file, 0664); err != nil {
 		return err
 	}

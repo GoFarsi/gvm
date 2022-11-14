@@ -41,7 +41,7 @@ func installGo(filePath string) error {
 		return errors.ERR_SUDO_ACCESS
 	}
 
-	if !removedOldGo() {
+	if !removeOldData(goInstallPath, "/bin/go") {
 		return errors.ERR_CANT_REMOVE_OLD_VERSION
 	}
 
@@ -128,18 +128,6 @@ func hasSudoAccess() bool {
 	return false
 }
 
-func removedOldGo() bool {
-	if _, err := os.Stat(goInstallPath + "/bin/go"); err != nil {
-		return true
-	}
-
-	if err := os.RemoveAll(goInstallPath); err != nil {
-		return false
-	}
-
-	return true
-}
-
 func setGoEnvPath() {
 	homes, _, _ := getLinuxHomeUsers()
 
@@ -191,4 +179,24 @@ func getLinuxHomeUsers() ([]string, int, int) {
 		homeList = append(homeList, user.HomeDir)
 	}
 	return homeList, userId, groupId
+}
+
+func removeOldData(path string, file string) bool {
+	if _, err := os.Stat(path + file); err != nil {
+		return true
+	}
+
+	if err := os.RemoveAll(path); err != nil {
+		return false
+	}
+
+	if _, err := os.Stat(path + file); err != nil {
+		return true
+	} else {
+		if err := exec.Command("rm", "-r", path).Start(); err != nil {
+			return false
+		}
+	}
+
+	return true
 }
