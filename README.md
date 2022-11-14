@@ -1,6 +1,8 @@
 # gvm
 Go version manager tool, for install, upgrade or downgrade easy you golang.
 
+[![asciicast](https://asciinema.org/a/537453.svg)](https://asciinema.org/a/537453)
+
 # install
 
 1. install with go:
