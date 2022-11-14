@@ -4,4 +4,5 @@ import "github.com/GoFarsi/gvm/cmd"
 
 func main() {
 	cmd.Execute()
+	//internal.ReleaseNotification()
 }

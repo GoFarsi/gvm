@@ -6,6 +6,7 @@ require (
 	github.com/Code-Hex/pget v0.1.1
 	github.com/Songmu/prompter v0.5.1
 	github.com/hashicorp/go-version v1.6.0
+	github.com/martinlindhe/notify v0.0.0-20181008203735-20632c9a275a
 	github.com/spf13/cobra v1.6.1
 )
 
@@ -15,6 +16,7 @@ require (
 	github.com/antonholmquist/jason v1.0.1-0.20180605105355-426ade25b261 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
 	github.com/cheggaaa/pb/v3 v3.1.0 // indirect
+	github.com/deckarep/gosx-notifier v0.0.0-20180201035817-e127226297fb // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/jessevdk/go-flags v1.5.0 // indirect
@@ -22,10 +24,12 @@ require (
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mcuadros/go-version v0.0.0-20190830083331-035f6764e8d2 // indirect
+	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/term v0.2.0 // indirect
+	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 )
